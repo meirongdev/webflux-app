@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: webflux-app
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/mydatabase
+    username: postgres
+    password: postgres
+    properties:
+      schema: myschema
+
+logging:
+  level:
+    org.springframework.r2dbc.core: DEBUG
+    org.springframework.data.r2dbc: DEBUG
+    org.springframework.web: DEBUG
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  r2dbc:
+    url: r2dbc:tc:postgresql:///testdb?TC_IMAGE_TAG=17-alpine
+---

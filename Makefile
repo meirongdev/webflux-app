@@ -17,14 +17,14 @@ build-image: ## Build the Docker image
 	docker build -t meirongdev/webflux-app .
 
 up: ## Start the Docker Compose services
-	docker-compose up -d
+	docker compose up -d
 
 down: ## Stop the Docker Compose services
-	docker-compose down
+	docker compose down
 
 up-db: ## Start only the PostgreSQL service
-	docker-compose up -d db
+	docker compose up -d db
 
 clean-docker: ## Clean up all Docker resources
-	docker-compose down -v --rmi all --remove-orphans
+	docker compose down -v --rmi all --remove-orphans
 	docker system prune -f --volumes
