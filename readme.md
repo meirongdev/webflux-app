@@ -13,9 +13,15 @@ This is a simple webflux demo that uses the following technologies:
 
 ## Running the application
 
+locally
 ```shell
 make up-db
 ./mvnw spring-boot:run
+```
+run all in the containers
+```shell
+make build
+make up
 ```
 
 ## Running the tests

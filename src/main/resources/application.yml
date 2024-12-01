@@ -1,6 +1,9 @@
 server:
   port: 8080
 spring:
+  config:
+    activate:
+      on-profile: default
   application:
     name: webflux-app
   r2dbc:
@@ -15,6 +18,18 @@ logging:
     org.springframework.r2dbc.core: DEBUG
     org.springframework.data.r2dbc: DEBUG
     org.springframework.web: DEBUG
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  r2dbc:
+    url: r2dbc:postgresql://db:5432/mydatabase
+    username: postgres
+    password: postgres
+    properties:
+      schema: myschema
 
 ---
 spring:
