@@ -47,7 +47,24 @@ spring:
     redis:
       host: redis
       port: 6379
-  
+  # For redisson
+  redis:
+    host: redis
+    port: 6379
+logging:
+  level:
+    root: INFO
+    dev.meirong.demos.webflux_app: DEBUG
+    org.springframework.r2dbc.core: DEBUG
+    org.springframework.data.r2dbc: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.cache: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" 
     
 ---
 spring:

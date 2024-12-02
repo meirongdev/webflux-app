@@ -30,4 +30,4 @@ down-locally: ## Stop locally only the PostgreSQL service, Redis service
 
 clean-docker: ## Clean up all Docker resources
 	docker compose down -v --rmi all --remove-orphans
-	docker system prune -f --volumes
+	# docker system prune -f --volumes

@@ -26,6 +26,7 @@ public class CustomerRestController {
     }
 
     // curl -X POST -H "Content-Type: application/json" -d '{"companyName":"John Doe","companyEmail":"abc@gmail.com", "taxId": "123"}' http://localhost:8080/customers
+    // hey -n 1000 -c 10 -m POST -T "application/json" -d '{"companyName":"John Doe","companyEmail":"abc@gmail.com", "taxId": "123"}' http://localhost:8080/customers
     @PostMapping("/customers")
     Mono<CustomerModel> postCustomer(@RequestBody CustomerModel customer) {
         return customerService.createCustomer(customer);
@@ -44,6 +45,7 @@ public class CustomerRestController {
     }
 
     // curl -X DELETE -H "Content-Type: application/json" http://localhost:8080/customers/1
+    // hey -n 1000 -c 10 -m DELETE http://localhost:8080/customers/1
     @DeleteMapping("/customers/{id}")
     Mono<Void> deleteCustomer(@PathVariable("id") Long id) {
         return customerService.removeCustomer(id);
