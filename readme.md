@@ -35,10 +35,10 @@ curl commands can see [here](./src/main/java/dev/meirong/demos/webflux_app/web/C
 
 ## TODO 
 
-- [ ] Add spring cache with redis
+- [x] Add spring cache with redis
    - No data in db, then put a default value in cache to avoid hitting db every time
    - use `sync` flag in `@Cacheable` to implement single-flight pattern, to avoid cache stampede
-- [ ] Add distributed lock with redis for each customer write to avoid to write the same customer concurrently to db
+- [x] Add distributed lock with redis for each customer write to avoid to write the same customer concurrently to db
 - [ ] Add timeout + retry mechanism for the external service call
 - [ ] Add circuit breaker for the external service call
 - [ ] Add metrics
