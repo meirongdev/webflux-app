@@ -1,19 +1,21 @@
 package dev.meirong.demos.webflux_app.service.impl;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import dev.meirong.demos.webflux_app.constant.CacheNames;
 import dev.meirong.demos.webflux_app.model.CustomerModel;
 import dev.meirong.demos.webflux_app.repository.CustomerRepository;
 import dev.meirong.demos.webflux_app.service.CustomerService;
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service("customerService")
-@Value
+@AllArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
-    CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
 
     @Override
@@ -31,9 +33,12 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.deleteById(customerId);
     }
 
+    @Cacheable(cacheNames ={CacheNames.CUSTOMER_CACHE}, key = "#customerId", sync = true)
     @Override
     public Mono<CustomerModel> findCustomerById(Long customerId) {
-        return customerRepository.findById(customerId);
+        return customerRepository.findById(customerId)
+            .log()
+            .switchIfEmpty(Mono.just(new CustomerModel(0L, "", "", "")));
     }
 
     @Override

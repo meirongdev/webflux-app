@@ -3,12 +3,13 @@ package dev.meirong.demos.webflux_app.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.Value;
-
-@Value
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "customers")
 public class CustomerModel {
     @Id
@@ -19,13 +20,4 @@ public class CustomerModel {
     String companyEmail;
 
     String taxId;
-
-    @JsonCreator
-    public CustomerModel(@JsonProperty Long id, @JsonProperty String companyName,
-            @JsonProperty String companyEmail, @JsonProperty String taxId) {
-        this.id = id;
-        this.companyName = companyName;
-        this.companyEmail = companyEmail;
-        this.taxId = taxId;
-    }
 }

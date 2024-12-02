@@ -1,4 +1,4 @@
-.PHONY: help build build-jar build-image up down up-db down-db clean-docker
+.PHONY: help build build-jar build-image up down up-locally down-locally clean-docker
 
 help: ## Display this help message
 	@echo "Usage:"
@@ -22,11 +22,11 @@ up: ## Start the Docker Compose services
 down: ## Stop the Docker Compose services
 	docker compose down
 
-up-db: ## Start only the PostgreSQL service
-	docker compose up -d db
+up-locally: ## Start locally only the PostgreSQL service, Redis service
+	docker compose up -d db redis
 
-down-db: ## Stop only the PostgreSQL service
-	docker compose down db
+down-locally: ## Stop locally only the PostgreSQL service, Redis service
+	docker compose down db redis
 
 clean-docker: ## Clean up all Docker resources
 	docker compose down -v --rmi all --remove-orphans

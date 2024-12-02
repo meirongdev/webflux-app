@@ -22,7 +22,7 @@ public class CustomerRestController {
     // curl -X GET -H "Content-Type: application/json" http://localhost:8080/customers/1
     @GetMapping("/customers/{id}")
     Mono<CustomerModel> getCustomerById(@PathVariable("id") Long id) {
-        return customerService.findCustomerById(id).log();
+        return customerService.findCustomerById(id);
     }
 
     // curl -X POST -H "Content-Type: application/json" -d '{"companyName":"John Doe","companyEmail":"abc@gmail.com", "taxId": "123"}' http://localhost:8080/customers

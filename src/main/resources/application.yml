@@ -12,12 +12,22 @@ spring:
     password: postgres
     properties:
       schema: myschema
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 logging:
   level:
     org.springframework.r2dbc.core: DEBUG
     org.springframework.data.r2dbc: DEBUG
     org.springframework.web: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 ---
 spring:
@@ -30,7 +40,12 @@ spring:
     password: postgres
     properties:
       schema: myschema
-
+  data:
+    redis:
+      host: redis
+      port: 6379
+  
+    
 ---
 spring:
   config:
