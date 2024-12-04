@@ -2,7 +2,6 @@ package dev.meirong.demos.webflux_app.infra.cache;
 
 import java.time.Duration;
 
-import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -10,8 +9,6 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair;
-
-import dev.meirong.demos.webflux_app.constant.CacheNames;
 
 @Configuration
 public class RedisCacheConfig {
@@ -24,9 +21,9 @@ public class RedisCacheConfig {
         // Use `Jackson2JsonRedisSerializer` to serialize values, will remove `@class`
         // field in redis
         return RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(Duration.ofMinutes(60))
+                .entryTtl(Duration.ZERO)
                 .computePrefixWith(cacheName -> cacheName + SEPARATOR)
-                .disableCachingNullValues()
+                // .disableCachingNullValues()
                 .serializeValuesWith(SerializationPair.fromSerializer(jackson2JsonRedisSerializer));
     }
 
@@ -35,7 +32,6 @@ public class RedisCacheConfig {
         RedisCacheConfiguration config = cacheConfiguration();
         return RedisCacheManager.builder(redisConnectionFactory)
                 .cacheDefaults(config)
-                // .withCacheConfiguration(CacheNames.CUSTOMER_CACHE, config.entryTtl(Duration.ofMinutes(60)))
                 .build();
     }
     // @Bean

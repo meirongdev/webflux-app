@@ -73,7 +73,8 @@ public class CustomerServiceImpl implements CustomerService {
     public Mono<CustomerModel> findCustomerById(Long customerId) {
         return customerRepository.findById(customerId)
                 .log()
-                .switchIfEmpty(Mono.just(new CustomerModel(0L, "", "", "")));
+                .switchIfEmpty(Mono.empty());
+                // .switchIfEmpty(Mono.just(new CustomerModel(0L, "", "", "")));
     }
 
     @Override
