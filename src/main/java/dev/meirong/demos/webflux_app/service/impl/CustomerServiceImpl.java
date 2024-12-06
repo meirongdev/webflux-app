@@ -19,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @Service("customerService")
 @CacheConfig(cacheNames = { CacheNames.CUSTOMER_CACHE })
@@ -79,7 +80,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Flux<CustomerModel> findAllCustomers() {
-        return customerRepository.findAll();
+        return customerRepository.findAll()
+            .subscribeOn(Schedulers.boundedElastic())
+        ;
     }
 
 }

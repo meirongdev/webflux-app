@@ -20,6 +20,7 @@ public class CustomerRestController {
     CustomerService customerService;
 
     // curl -X GET -H "Content-Type: application/json" http://localhost:8080/customers/1
+    // hey -n 100000 -c 100 -m GET http://localhost:8080/customers/1
     @GetMapping("/customers/{id}")
     Mono<CustomerModel> getCustomerById(@PathVariable("id") Long id) {
         return customerService.findCustomerById(id)
@@ -40,13 +41,14 @@ public class CustomerRestController {
     }
 
     // curl -X GET -H "Content-Type: application/json" http://localhost:8080/customers
+    // hey -n 100 -c 10 -m GET http://localhost:8080/customers
     @GetMapping("/customers")
     Flux<CustomerModel> getAllCustomers() {
         return customerService.findAllCustomers();
     }
 
     // curl -X DELETE -H "Content-Type: application/json" http://localhost:8080/customers/1
-    // hey -n 1000 -c 10 -m DELETE http://localhost:8080/customers/1
+    // hey -n 100 -c 10 -m DELETE http://localhost:8080/customers/1
     @DeleteMapping("/customers/{id}")
     Mono<Void> deleteCustomer(@PathVariable("id") Long id) {
         return customerService.removeCustomer(id);

@@ -13,5 +13,4 @@ public class WebfluxAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(WebfluxAppApplication.class, args);
 	}
-
 }
