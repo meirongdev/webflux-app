@@ -73,8 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Mono<CustomerModel> findCustomerById(Long customerId) {
         return customerRepository.findById(customerId)
-                .log()
-                .switchIfEmpty(Mono.empty());
+                .cache();// should add .cache() to avoid blocking caching
                 // .switchIfEmpty(Mono.just(new CustomerModel(0L, "", "", "")));
     }
 
