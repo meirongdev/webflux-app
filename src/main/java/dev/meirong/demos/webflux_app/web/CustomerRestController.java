@@ -36,7 +36,7 @@ public class CustomerRestController {
 
     // curl -X PUT -H "Content-Type: application/json" -d '{"id": 1, "companyName":"John Doe","companyEmail":"updated@gmail.com", "taxId": "123"}' http://localhost:8080/customers/1
     @PutMapping("/customers/{id}")
-    Mono<CustomerModel> putCustomer(@RequestBody CustomerModel customer) {
+    Mono<CustomerModel> putCustomer(@PathVariable("id") Long id, @RequestBody CustomerModel customer) {
         return customerService.createCustomer(customer);
     }
 

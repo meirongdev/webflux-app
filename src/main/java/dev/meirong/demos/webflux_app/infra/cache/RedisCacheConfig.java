@@ -2,6 +2,7 @@ package dev.meirong.demos.webflux_app.infra.cache;
 
 import java.time.Duration;
 
+import org.springframework.boot.actuate.metrics.cache.CacheMetricsRegistrar;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -9,6 +10,8 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair;
+
+import io.micrometer.core.instrument.MeterRegistry;
 
 @Configuration
 public class RedisCacheConfig {
@@ -32,8 +35,10 @@ public class RedisCacheConfig {
         RedisCacheConfiguration config = cacheConfiguration();
         return RedisCacheManager.builder(redisConnectionFactory)
                 .cacheDefaults(config)
+                .enableStatistics()
                 .build();
     }
+
     // @Bean
     // public RedisCacheManagerBuilderCustomizer
     // redisCacheManagerBuilderCustomizer() {
