@@ -9,6 +9,15 @@ COPY target/*.jar app.jar
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
+EXPOSE 9010
 
 # Run the jar file
-ENTRYPOINT ["java", "-jar", "app.jar",  "--spring.profiles.active=prod"]
+ENTRYPOINT ["java", \
+    "-Dcom.sun.management.jmxremote=true", \
+    "-Dcom.sun.management.jmxremote.port=9010", \
+    "-Dcom.sun.management.jmxremote.rmi.port=9010", \
+    "-Dcom.sun.management.jmxremote.authenticate=false", \
+    "-Dcom.sun.management.jmxremote.ssl=false", \
+    "-Djava.rmi.server.hostname=0.0.0.0", \
+    "-jar", "app.jar", \
+    "--spring.profiles.active=prod"]

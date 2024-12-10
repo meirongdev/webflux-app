@@ -13,6 +13,7 @@ import dev.meirong.demos.webflux_app.service.CustomerService;
 import lombok.Value;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @Value
 @RestController
@@ -24,7 +25,8 @@ public class CustomerRestController {
     @GetMapping("/customers/{id}")
     Mono<CustomerModel> getCustomerById(@PathVariable("id") Long id) {
         return customerService.findCustomerById(id)
-            .switchIfEmpty(Mono.error(new RuntimeException("Customer not found")));
+            .switchIfEmpty(Mono.error(new RuntimeException("Customer not found")))
+            .subscribeOn(Schedulers.boundedElastic());
     }
 
     // curl -X POST -H "Content-Type: application/json" -d '{"companyName":"John Doe","companyEmail":"abc@gmail.com", "taxId": "123"}' http://localhost:8080/customers
